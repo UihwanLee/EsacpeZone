@@ -84,15 +84,17 @@ public class PlayerController : MonoBehaviour
 
     public void InputRun(InputAction.CallbackContext context)
     {
+        if (condition.state == ConditonState.Consume || condition.state == ConditonState.Die) return;
+
         if(context.phase == InputActionPhase.Performed)
         {
             // Shift를 누르고 있을 시 달리기
-            curSpeed = runSpeed;
+            ChangeSpeed(runSpeed);
             condition.ChangeState(ConditonState.Run);
         }
         else if(context.phase == InputActionPhase.Canceled)
         {
-            curSpeed = moveSpeed;
+            ChangeSpeed(moveSpeed);
             condition.ChangeState(ConditonState.None);
         }
     }
@@ -125,5 +127,10 @@ public class PlayerController : MonoBehaviour
         camera.transform.localEulerAngles = new Vector3(-curXLook, 0f, 0f);
 
         transform.eulerAngles += new Vector3(0f, mouseDelta.x * lookSensitivity, 0f);
+    }
+
+    public void ChangeSpeed(float speed)
+    {
+        curSpeed = speed;
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Interaction : MonoBehaviour
 {
@@ -62,7 +63,7 @@ public class Interaction : MonoBehaviour
         if(interactable != null)
         {
             curInteractable = interactable;
-            curInteractable.OnInteract();
+            curInteractable.ShowInteractUI();
             interactTxt.text = curInteractable.GetInteractPrompt();
         }
     }
@@ -73,8 +74,16 @@ public class Interaction : MonoBehaviour
         if (interactable != null)
         {
             curInteractable = interactable;
-            curInteractable.OnInteract();
+            curInteractable.ShowInteractUI();
             interactTxt.text = string.Empty;
+        }
+    }
+
+    public void InputInteract(InputAction.CallbackContext context)
+    {
+        if(context.phase == InputActionPhase.Started && curInteractable != null)
+        {
+            curInteractable.OnInteract();
         }
     }
 }

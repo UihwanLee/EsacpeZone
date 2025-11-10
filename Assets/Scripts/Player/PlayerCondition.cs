@@ -6,6 +6,7 @@ public enum ConditonState
 {
     None,
     Run,
+    Consume,
     Die
 }
 
@@ -16,7 +17,7 @@ public class PlayerCondition : MonoBehaviour
     public Condition health;
     public Condition stamina;
 
-    private ConditonState state;
+    public ConditonState state;
 
     private void Start()
     {
@@ -30,21 +31,23 @@ public class PlayerCondition : MonoBehaviour
 
     private void PassvieUpdateByState()
     {
-        switch(state)
+        switch (state)
         {
             case ConditonState.None:
                 stamina.Add(stamina.passiveValue * Time.deltaTime);
+                health.Subtract(health.passiveValue * Time.deltaTime);
                 break;
             case ConditonState.Run:
                 stamina.Subtract(stamina.passiveValue * Time.deltaTime);
+                health.Subtract(health.passiveValue * Time.deltaTime);
+                break;
+            case ConditonState.Consume:
                 break;
             case ConditonState.Die:
                 break;
             default:
                 break;
         }
-
-        health.Subtract(health.passiveValue * Time.deltaTime);
     }
 
     public void Jump()
