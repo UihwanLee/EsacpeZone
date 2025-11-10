@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
         if(IsGrounded())
         {
             _rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            CharacterManager.Instance.Player.condtion.Jump();
         }
     }
 
