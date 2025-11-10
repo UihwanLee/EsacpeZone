@@ -715,7 +715,6 @@ GameObject:
   - component: {fileID: 598249303}
   - component: {fileID: 598249304}
   - component: {fileID: 598249306}
-  - component: {fileID: 598249309}
   - component: {fileID: 598249307}
   - component: {fileID: 598249305}
   - component: {fileID: 598249308}
@@ -920,18 +919,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: {fileID: 1186295513}
   stamina: {fileID: 974722362}
---- !u!114 &598249309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598249300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adacdfc8fcc039d4a98db051c122e96f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &650083054
 GameObject:
   m_ObjectHideFlags: 0
