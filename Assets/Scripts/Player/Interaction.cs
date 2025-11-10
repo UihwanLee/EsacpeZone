@@ -30,7 +30,7 @@ public class Interaction : MonoBehaviour
         {
             lastCheckTime = Time.time;
 
-            CheckInteractionObject();
+            //CheckInteractionObject();
         }
     }
 
@@ -52,6 +52,28 @@ public class Interaction : MonoBehaviour
         {
             curInteractionObject = null;
             curInteractable= null;
+            interactTxt.text = string.Empty;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        IInteractable interactable = other.GetComponent<IInteractable>();
+        if(interactable != null)
+        {
+            curInteractable = interactable;
+            curInteractable.OnInteract();
+            interactTxt.text = curInteractable.GetInteractPrompt();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        IInteractable interactable = other.GetComponent<IInteractable>();
+        if (interactable != null)
+        {
+            curInteractable = interactable;
+            curInteractable.OnInteract();
             interactTxt.text = string.Empty;
         }
     }

@@ -11,6 +11,12 @@ public interface IInteractable
 public class ItemContainer : MonoBehaviour, IInteractable
 {
     public ItemData item;
+    public GameObject interactUI;
+
+    private void Start()
+    {
+        interactUI.SetActive(false);
+    }
 
     public string GetInteractPrompt()
     {
@@ -20,6 +26,6 @@ public class ItemContainer : MonoBehaviour, IInteractable
 
     public virtual void OnInteract()
     {
-        
+        interactUI.SetActive(!interactUI.activeSelf);
     }
 }
