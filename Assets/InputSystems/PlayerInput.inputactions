@@ -28,7 +28,7 @@
                     "name": "Mouse",
                     "type": "Value",
                     "id": "741199ab-6c8e-40f9-b79d-b25c0374fb70",
-                    "expectedControlType": "Delta",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true

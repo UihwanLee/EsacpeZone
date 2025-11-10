@@ -248,8 +248,8 @@ GameObject:
   - component: {fileID: 598249302}
   - component: {fileID: 598249303}
   - component: {fileID: 598249304}
-  - component: {fileID: 598249305}
   - component: {fileID: 598249306}
+  - component: {fileID: 598249305}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -338,6 +338,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpPower: 80
+  minXLook: -35
+  maxXLook: 15
+  lookSensitivity: 0.2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &598249306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,7 +402,19 @@ MonoBehaviour:
     m_ActionId: 65299227-6c1e-49ab-9946-f4f174f118df
     m_ActionName: PlayerInput/Jump[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 598249305}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: InputMouseDelta
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 741199ab-6c8e-40f9-b79d-b25c0374fb70
     m_ActionName: PlayerInput/Mouse[/Mouse/delta]
   m_NeverAutoSwitchControlSchemes: 0
@@ -584,7 +602,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.31}
+  m_LocalPosition: {x: 0, y: 0.95, z: -3.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -649,7 +667,7 @@ GameObject:
   - component: {fileID: 1686021177308282689}
   - component: {fileID: 1686021177307282817}
   - component: {fileID: 2536002159034410910}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
