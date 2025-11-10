@@ -805,7 +805,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c514ff43dd237594695459d2f5709091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curSpeed: 0
   moveSpeed: 5
+  runSpeed: 8
   jumpPower: 80
   minXLook: -35
   maxXLook: 15
@@ -886,6 +888,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 741199ab-6c8e-40f9-b79d-b25c0374fb70
     m_ActionName: PlayerInput/Mouse[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 598249305}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: InputRun
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9ec5ece8-c500-4fcc-a25b-c99d0785f0c1
+    m_ActionName: PlayerInput/Run[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerInput

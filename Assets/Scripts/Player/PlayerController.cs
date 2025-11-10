@@ -6,14 +6,16 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
+    [SerializeField] private float curSpeed;        // 현재 속도
     [SerializeField] private float moveSpeed;       // 이동 속도
+    [SerializeField] private float runSpeed;        // 달리기 속도
     [SerializeField] private float jumpPower;       // 점프 파워
     private Vector2 curMoveVector;                  // 현재 움직임
 
     [Header("CameraLook")]
-    [SerializeField] private float minXLook;            
-    [SerializeField] private float maxXLook;
-    [SerializeField] private float lookSensitivity;
+    [SerializeField] private float minXLook;            // 최소 시야
+    [SerializeField] private float maxXLook;            // 최대 시야
+    [SerializeField] private float lookSensitivity;     // 회전 속도
 
     private float curXLook;
     private Vector2 mouseDelta;
@@ -24,10 +26,19 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private Camera camera;
 
+    private PlayerCondition condition;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         camera = Camera.main;
+
+        curSpeed = moveSpeed;
+    }
+
+    private void Start()
+    {
+        condition = CharacterManager.Instance.Player.condition;
     }
 
     private void FixedUpdate()
@@ -56,7 +67,7 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         Vector3 dir = transform.forward * curMoveVector.y + transform.right * curMoveVector.x;
-        dir *= moveSpeed;
+        dir *= curSpeed;
         dir.y = _rb.velocity.y;
 
         _rb.velocity = dir;
@@ -71,12 +82,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void InputRun(InputAction.CallbackContext context)
+    {
+        if(context.phase == InputActionPhase.Performed)
+        {
+            // Shift를 누르고 있을 시 달리기
+            curSpeed = runSpeed;
+            condition.ChangeState(ConditonState.Run);
+        }
+        else if(context.phase == InputActionPhase.Canceled)
+        {
+            curSpeed = moveSpeed;
+            condition.ChangeState(ConditonState.None);
+        }
+    }
+
     private void Jump()
     {
         if(IsGrounded())
         {
             _rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
-            CharacterManager.Instance.Player.condtion.Jump();
+            condition.Jump();
         }
     }
 
