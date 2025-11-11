@@ -52,6 +52,8 @@ public class Buff : MonoBehaviour, IInteractable
 
     public string GetInteractPrompt()
     {
+        if(!model.gameObject.activeSelf) return String.Empty;
+
         string str = $"{buffName}\n{description}";
         return str;
     }
@@ -62,12 +64,6 @@ public class Buff : MonoBehaviour, IInteractable
 
     public void ShowInteractUI()
     {
-        if(isActive == false)
-        {
-            interactUI.SetActive(false);
-            return;
-        }
-
         interactUI.SetActive(!interactUI.activeSelf);
     }
 
