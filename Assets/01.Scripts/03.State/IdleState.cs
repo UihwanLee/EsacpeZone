@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class IdleState : IState
 {
+    private Player player;
     private PlayerController controller;
     private PlayerCondition condition;
     private StateMachine stateMachine;
 
-    public IdleState(PlayerController _controller, PlayerCondition _condition, StateMachine _stateMachine)
+    public IdleState(Player player)
     {
-        controller = _controller;
-        condition = _condition;
-        stateMachine = _stateMachine;
+        controller = player.controller;
+        condition = player.condition;
+        stateMachine = player.stateMachine;
     }
 
     public void Enter()

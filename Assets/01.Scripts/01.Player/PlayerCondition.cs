@@ -17,6 +17,7 @@ public class PlayerCondition : MonoBehaviour
     public IState JumpState { get; private set; }
 
     // 클래스 참조
+    private Player player;
     private PlayerController controller;
     private StateMachine stateMachine;
 
@@ -25,6 +26,7 @@ public class PlayerCondition : MonoBehaviour
 
     private void Start()
     {
+        player = CharacterManager.Instance.Player;
         controller = CharacterManager.Instance.Player.controller;
         stateMachine = CharacterManager.Instance.Player.stateMachine;
 
@@ -33,10 +35,10 @@ public class PlayerCondition : MonoBehaviour
 
     private void InitState()
     {
-        IdleState = new IdleState(controller, this, stateMachine);
-        MoveState = new MoveState(controller, this, stateMachine);
-        RunState = new RunState(controller, this, stateMachine);
-        JumpState = new JumpState(controller, this, stateMachine);
+        IdleState = new IdleState(player);
+        MoveState = new MoveState(player);
+        RunState = new RunState(player);
+        JumpState = new JumpState(player);
 
         // 초기 상태 IdleState로 변경
         stateMachine.Init(IdleState);
