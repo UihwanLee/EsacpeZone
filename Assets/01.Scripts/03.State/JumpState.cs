@@ -18,7 +18,7 @@ public class JumpState : IState
     public void Enter()
     {
         // 점프
-        controller.Jump();
+        controller._rb.AddForce(Vector2.up * Define.POWER_JUMP, ForceMode.Impulse);
 
         // 스태미나 소모
         condition.stamina.Subtract(condition.stamina.passiveValue * 4);
@@ -26,12 +26,12 @@ public class JumpState : IState
 
     public void Do()
     {
-        stateMachine.CurState = this;
+        if (controller.isJumping) return;
+
         if(controller.IsGrounded())
         {
-            Debug.Log("변경");
-            // 땅에 닿으면 State 변경
             stateMachine.ChangeState(condition.IdleState);
+            controller.isJumping = false;
         }
     }
 
