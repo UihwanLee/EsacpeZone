@@ -23,12 +23,15 @@ public class PlayerController : MonoBehaviour
     [Header("LayerMaske")]
     [SerializeField] private LayerMask groundMask;  // Ground Layer
 
-    private Rigidbody _rb;
+    public Rigidbody _rb;
     private Camera camera;
 
     // 클래스 참조
     private PlayerCondition condition;
     private StateMachine stateMachine;
+
+    // Jump bool 값
+    public bool isJumping = false;
 
     private void Awake()
     {
@@ -40,6 +43,11 @@ public class PlayerController : MonoBehaviour
     {
         condition = CharacterManager.Instance.Player.condition;
         stateMachine = CharacterManager.Instance.Player.stateMachine;
+    }
+
+    private void Update()
+    {
+        CheckJumping();
     }
 
     private void FixedUpdate()
@@ -106,12 +114,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Jump()
+    public void CheckJumping()
     {
-        if(IsGrounded())
-        {
-            _rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
-        }
+        isJumping = IsGrounded();
     }
 
     #endregion
