@@ -9,6 +9,14 @@ public class StateMachine : MonoBehaviour
     private IState curState;        // 현재 상태
     public IState CurState { get { return curState; } set { curState = value; } }
 
+    // 전환 규약을 나타내는 Dictionary
+    private Dictionary<IState, List<IState>> allowedTransitions;
+
+    private void Awake()
+    {
+        allowedTransitions = new Dictionary<IState, List<IState>>();
+    }
+
     public void Init(IState initState)
     {
         // 초기 상태 결정
@@ -16,11 +24,29 @@ public class StateMachine : MonoBehaviour
         curState.Enter();
     }
 
+    public void MakeTransitionRule(IState fromState, IState toState)
+    {
+        if (!allowedTransitions.ContainsKey(fromState))
+        {
+            // 새로운 Transition이면 새로 생성
+            allowedTransitions[fromState] = new List<IState>();
+        }
+        allowedTransitions[fromState].Add(toState);
+    }
+
+
     public void ChangeState(IState newState)
     {
         // 상태 변경
+        if (curState != null &&
+            allowedTransitions.ContainsKey(curState) &&
+            !allowedTransitions[curState].Contains(newState))
+        {
+            Debug.Log($"규약 위반: {curState}에서 {newState}으로 전환 불가");
+            return; 
+        }
 
-        if(curState != null)
+        if (curState != null)
         {
             // 이전 상태가 있다면 Exit 실행
             curState.Exit();
@@ -34,6 +60,7 @@ public class StateMachine : MonoBehaviour
     public void Update()
     {
         // Update에서 Do 실행
-        curState.Do();
+        if(curState != null)
+            curState.Do();
     }
 }

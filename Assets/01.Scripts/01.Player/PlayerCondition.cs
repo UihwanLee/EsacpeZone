@@ -42,8 +42,26 @@ public class PlayerCondition : MonoBehaviour
         JumpState = new JumpState(player);
         JumpingPadState = new JumpingPadState(player);
 
+        SetUpTransition();
+
         // 초기 상태 IdleState로 변경
         stateMachine.Init(IdleState);
+    }
+
+    private void SetUpTransition()
+    {
+        stateMachine.MakeTransitionRule(IdleState, MoveState);
+        stateMachine.MakeTransitionRule(IdleState, RunState);
+        stateMachine.MakeTransitionRule(IdleState, JumpState);
+        stateMachine.MakeTransitionRule(IdleState, JumpingPadState);
+
+        stateMachine.MakeTransitionRule(RunState, JumpState);
+        stateMachine.MakeTransitionRule(RunState, JumpingPadState);
+
+        stateMachine.MakeTransitionRule(JumpState, IdleState);
+        stateMachine.MakeTransitionRule(JumpState, JumpingPadState);
+
+        stateMachine.MakeTransitionRule(JumpingPadState, IdleState);
     }
 
     private void Update()
