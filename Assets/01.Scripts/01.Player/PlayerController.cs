@@ -138,7 +138,6 @@ public class PlayerController : MonoBehaviour
         Buff buff = collisionHandler.IsBuff();
         if(buff != null)
         {
-            Debug.Log("함?");
             buff.BuffOn();
         }
     }

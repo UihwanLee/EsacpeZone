@@ -67,7 +67,6 @@ public class Buff : MonoBehaviour, IInteractable
 
     public virtual void BuffOn()
     {
-        Debug.Log("흠");
         // 활성화 되어 있는 상태만 적용
         if (!model.gameObject.activeSelf) return;
 
@@ -87,5 +86,11 @@ public class Buff : MonoBehaviour, IInteractable
     public void SetActive(bool active)
     {
         isActive = active;
+    }
+
+    public void ResetDuration()
+    {
+        // duration 초기화
+        duration = maxDuration;
     }
 }

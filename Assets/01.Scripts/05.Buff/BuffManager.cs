@@ -69,6 +69,7 @@ public class BuffManager : MonoBehaviour
     public void AddBuff(Buff buff)
     {
         // 중복된 버프이면 버프 지속시간 초기화
+        if (CheckIsContainBuff(buff)) return;
 
         // 소지 할 수 있는 버프 개수를 넘었는지 체크
         if (currentSlotIndex >= maxBuffSlotCount) return;
@@ -100,10 +101,10 @@ public class BuffManager : MonoBehaviour
     {
         // 버프 슬롯 업데이트 : 버프 UI 갱신
 
-        List<BuffSlot> activeBuff = new List<BuffSlot>(); 
+        List<BuffSlot> activeBuff = new List<BuffSlot>();
 
         // 버프가 지속되고 있는 슬롯 찾기
-        for (int i = buffSlotList.Length - 1; i >= 0; i--)
+        for (int i = 0; i < buffSlotList.Length; i++)
         {
             if (buffSlotList[i].isActive)
             {
@@ -124,5 +125,21 @@ public class BuffManager : MonoBehaviour
                 buffSlotList[index].ResetSlot();
             }
         }
+    }
+
+    private bool CheckIsContainBuff(Buff buff)
+    {
+        // 이미 먹은 버프이면 지속시간 초기화
+        for (int i = 0; i < buffSlotList.Length; i++)
+        {
+            Buff curBuff = buffSlotList[i].Buff;
+            if (curBuff != null && curBuff.type == buff.type)
+            {
+                curBuff.ResetDuration();
+                return true;
+            }
+        }
+
+        return false;
     }
 }
