@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         CheckJumping();
         CheckJumpingPad();
+        CheckBuff();
     }
 
     private void FixedUpdate()
@@ -129,6 +130,16 @@ public class PlayerController : MonoBehaviour
         if(pad != null)
         {
             pad.Activate();
+        }
+    }
+
+    public void CheckBuff()
+    {
+        Buff buff = collisionHandler.IsBuff();
+        if(buff != null)
+        {
+            Debug.Log("함?");
+            buff.BuffOn();
         }
     }
 

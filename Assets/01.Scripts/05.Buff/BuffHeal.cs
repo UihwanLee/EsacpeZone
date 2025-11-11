@@ -8,8 +8,10 @@ public class BuffHeal : Buff
     [SerializeField] private float healAmount;
 
     Coroutine healBuffCoroutine;
-    public override void Active()
+    public override void BuffOn()
     {
+        base.BuffOn();
+
         if (isActive == false) return;
 
         if (healBuffCoroutine != null)

@@ -8,8 +8,7 @@ public class CollisionHandler : MonoBehaviour
     [Header("LayerMask")]
     [SerializeField] private LayerMask groundMask;      // Ground Layer
     [SerializeField] private LayerMask jumpPadMask;     // JumpPad Layer
-
-    private bool isGrounded = false;
+    [SerializeField] private LayerMask buffMask;        // Buff Layer
 
     public bool IsGrounded()
     {
@@ -27,6 +26,26 @@ public class CollisionHandler : MonoBehaviour
             return hit.transform.GetComponent<JumpingPad>();
         }
 
+        return null;
+    }
+
+    public Buff IsBuff()
+    {
+        Vector3 center = transform.position; 
+        Vector3 halfExtents = new Vector3(0.5f, 0.5f, 0.5f);
+
+        Vector3 direction = transform.forward; 
+        Quaternion orientation = transform.rotation;
+        float maxDistance = 1.5f; 
+
+        RaycastHit hit;
+
+        if (Physics.BoxCast(center, halfExtents, direction, out hit, orientation, maxDistance, buffMask))
+        {
+            return hit.transform.GetComponentInParent<Buff>();
+        }
+
+        // 충돌이 없으면 null 반환
         return null;
     }
 }

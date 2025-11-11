@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 888672173431239367}
   - component: {fileID: 5274951612325461205}
   - component: {fileID: 138937398965412516}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,8 @@ GameObject:
   - component: {fileID: 7044403794763714154}
   - component: {fileID: 2078607248555891316}
   - component: {fileID: 7057179069469449715}
-  m_Layer: 7
+  - component: {fileID: 168032615522582021}
+  m_Layer: 9
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,6 +219,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &168032615522582021
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3491337638793038779}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4803527999788458279
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +253,7 @@ GameObject:
   - component: {fileID: 4989925605678058784}
   - component: {fileID: 2320207187750485848}
   - component: {fileID: 6061595156348498691}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: InteractUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +368,7 @@ GameObject:
   - component: {fileID: 5630420882393648730}
   - component: {fileID: 2594591059518669692}
   - component: {fileID: 4385159683823062944}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: interactTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -480,7 +502,7 @@ GameObject:
   - component: {fileID: 7457039481283701551}
   - component: {fileID: 6692336015398424113}
   - component: {fileID: 131013626555057204}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -599,7 +621,8 @@ MonoBehaviour:
   model: {fileID: 3491337638793038779}
   interactUI: {fileID: 4803527999788458279}
   interactTitle: {fileID: 138937398965412516}
-  healAmount: 0
+  isActive: 0
+  healAmount: 10
 --- !u!65 &7828017950586047080
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -619,5 +642,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5, y: 4, z: 5}
+  m_Size: {x: 10, y: 4, z: 10}
   m_Center: {x: 0, y: 0, z: 0}

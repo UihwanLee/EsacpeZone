@@ -9,8 +9,10 @@ public class BuffSpeed : Buff, IInteractable
 
     Coroutine speedBuffCoroutine;
 
-    public override void Active()
+    public override void BuffOn()
     {
+        base.BuffOn();
+
         if (isActive == false) return;
 
         if(speedBuffCoroutine != null)

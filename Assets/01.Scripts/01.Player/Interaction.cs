@@ -25,38 +25,6 @@ public class Interaction : MonoBehaviour
         camera = Camera.main;
     }
 
-    private void Update()
-    {
-        if (Time.time - lastCheckTime > checkRate)
-        {
-            lastCheckTime = Time.time;
-
-            //CheckInteractionObject();
-        }
-    }
-
-    private void CheckInteractionObject()
-    {
-        Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
-        RaycastHit hit;
-
-        if(Physics.Raycast(ray, out hit, maxCheckDist, interactablLayer))
-        {
-            if(hit.collider.gameObject != curInteractionObject)
-            {
-                curInteractionObject = hit.collider.gameObject;
-                curInteractable = curInteractionObject.GetComponent<IInteractable>();
-                interactTxt.text = curInteractable.GetInteractPrompt();
-            }
-        }
-        else
-        {
-            curInteractionObject = null;
-            curInteractable= null;
-            interactTxt.text = string.Empty;
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         IInteractable interactable = other.GetComponent<IInteractable>();

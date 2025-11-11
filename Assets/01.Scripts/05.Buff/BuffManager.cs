@@ -73,9 +73,7 @@ public class BuffManager : MonoBehaviour
         // 소지 할 수 있는 버프 개수를 넘었는지 체크
         if (currentSlotIndex >= maxBuffSlotCount) return;
 
-        // Buff Event 세팅
         buff.SetActive(true);
-        //buff.eventBuffOff += RemoveBuff(buff);
 
         // BuffSlot에 넣고 세팅
         buffSlotList[currentSlotIndex].Set(buff);

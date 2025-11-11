@@ -58,6 +58,16 @@ public class Buff : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
+    }
+
+    public void ShowInteractUI()
+    {
+        interactUI.SetActive(!interactUI.activeSelf);
+    }
+
+    public virtual void BuffOn()
+    {
+        Debug.Log("흠");
         // 활성화 되어 있는 상태만 적용
         if (!model.gameObject.activeSelf) return;
 
@@ -65,12 +75,7 @@ public class Buff : MonoBehaviour, IInteractable
         BuffManager.Instance.AddBuff(this);
         model.SetActive(false);
 
-        Active();
-    }
-
-    public void ShowInteractUI()
-    {
-        interactUI.SetActive(!interactUI.activeSelf);
+        // Buff 적용은 각자 기능에 따라 구현
     }
 
     private void BuffOff()
@@ -82,10 +87,5 @@ public class Buff : MonoBehaviour, IInteractable
     public void SetActive(bool active)
     {
         isActive = active;
-    }
-
-    public virtual void Active()
-    {
-        // Active는 각자 기능에 따라 구현
     }
 }
