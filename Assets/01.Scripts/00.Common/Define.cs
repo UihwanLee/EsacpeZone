@@ -12,4 +12,10 @@ public static class Define
     public const float POWER_JUMP = 80.0f;  // 점프 파워
 
     #endregion
+
+    #region 버프
+
+    public const int BUFF_MAX_SLOT_COUNT = 10;
+
+    #endregion
 }
