@@ -62,6 +62,9 @@ public class Buff : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
+        // 활성화 되어 있는 상태만 적용
+        if (!model.gameObject.activeSelf) return;
+
         // 버프 창 넘기기
         BuffManager.Instance.AddBuff(this);
         model.SetActive(false);
