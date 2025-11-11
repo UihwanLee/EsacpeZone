@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class MoveState : IState
 {
@@ -9,8 +10,9 @@ public class MoveState : IState
     private PlayerCondition condition;
     private StateMachine stateMachine;
 
-    public MoveState(Player player)
+    public MoveState(Player _player)
     {
+        player = _player;
         controller = player.controller;
         condition = player.condition;
         stateMachine = player.stateMachine;

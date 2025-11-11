@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class IdleState : IState
 {
@@ -9,8 +10,9 @@ public class IdleState : IState
     private PlayerCondition condition;
     private StateMachine stateMachine;
 
-    public IdleState(Player player)
+    public IdleState(Player _player)
     {
+        player = _player;
         controller = player.controller;
         condition = player.condition;
         stateMachine = player.stateMachine;

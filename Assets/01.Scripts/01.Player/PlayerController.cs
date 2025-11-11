@@ -20,15 +20,13 @@ public class PlayerController : MonoBehaviour
     private float curXLook;
     private Vector2 mouseDelta;
 
-    [Header("LayerMaske")]
-    [SerializeField] private LayerMask groundMask;  // Ground Layer
-
     public Rigidbody _rb;
     private Camera camera;
 
     // 클래스 참조
     private PlayerCondition condition;
     private StateMachine stateMachine;
+    public CollisionHandler collisionHandler;
 
     // Jump bool 값
     public bool isJumping = false;
@@ -41,13 +39,15 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        condition = CharacterManager.Instance.Player.condition;
-        stateMachine = CharacterManager.Instance.Player.stateMachine;
+        condition = GetComponent<PlayerCondition>();
+        stateMachine = GetComponent<StateMachine>();
+        collisionHandler = GetComponent<CollisionHandler>();
     }
 
     private void Update()
     {
         CheckJumping();
+        CheckJumpingPad();
     }
 
     private void FixedUpdate()
@@ -116,7 +116,20 @@ public class PlayerController : MonoBehaviour
 
     public void CheckJumping()
     {
-        isJumping = IsGrounded();
+        isJumping = collisionHandler.IsGrounded();
+    }
+
+    #endregion
+
+    #region 기믹 처리
+
+    public void CheckJumpingPad()
+    {
+        JumpingPad pad = collisionHandler.IsJumpingPad();
+        if(pad != null)
+        {
+            pad.Activate();
+        }
     }
 
     #endregion
@@ -141,12 +154,6 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region 상태 처리
-
-    public bool IsGrounded()
-    {
-        Ray ray = new Ray(transform.position, Vector2.down);
-        return Physics.Raycast(ray, 1.5f, groundMask);
-    }
 
     public void ChangeSpeed(float speed)
     {

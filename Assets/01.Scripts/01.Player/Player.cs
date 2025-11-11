@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public PlayerController controller;
     public PlayerCondition condition;
 
+    public JumpingPad jumpingPad;
+
     private void Awake()
     {
         CharacterManager.Instance.Player = this;

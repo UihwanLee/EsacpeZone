@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpState : IState
+public class JumpingPadState : IState
 {
     private Player player;
     private PlayerController controller;
     private PlayerCondition condition;
     private StateMachine stateMachine;
 
-    public JumpState(Player _player)
+    public JumpingPadState(Player _player)
     {
         player = _player;
         controller = player.controller;
@@ -19,11 +19,19 @@ public class JumpState : IState
 
     public void Enter()
     {
-        // 점프
-        controller._rb.AddForce(Vector2.up * Define.POWER_JUMP, ForceMode.Impulse);
+        // 기본 속도로 변경
+        controller.ChangeSpeed(Define.SPEED_MOVE);
 
-        // 스태미나 소모
-        condition.stamina.Subtract(condition.stamina.passiveValue * 4);
+        if (player.jumpingPad == null)
+        {
+            Debug.LogError("JumpingPad가 없습니다.");
+            return;
+        }
+
+        // 방향대로 점프
+        Vector3 jumpDir = player.jumpingPad.jumpingDirection.normalized;
+        float jumpPower = player.jumpingPad.jumpPower;
+        controller._rb.AddForce(jumpDir * jumpPower, ForceMode.Impulse);
     }
 
     public void Do()
@@ -41,8 +49,10 @@ public class JumpState : IState
         }
     }
 
+
     public void Exit()
     {
-
+        // JumpingPad Player에게서 지우기
+        //player.jumpingPad = null;
     }
 }

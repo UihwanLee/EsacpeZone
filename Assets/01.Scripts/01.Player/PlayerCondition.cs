@@ -15,6 +15,7 @@ public class PlayerCondition : MonoBehaviour
     public IState MoveState { get; private set; }
     public IState RunState { get; private set; }
     public IState JumpState { get; private set; }
+    public IState JumpingPadState { get; private set; }
 
     // 클래스 참조
     private Player player;
@@ -26,9 +27,9 @@ public class PlayerCondition : MonoBehaviour
 
     private void Start()
     {
-        player = CharacterManager.Instance.Player;
-        controller = CharacterManager.Instance.Player.controller;
-        stateMachine = CharacterManager.Instance.Player.stateMachine;
+        player = GetComponent<Player>();
+        controller = GetComponent<PlayerController>();
+        stateMachine = GetComponent<StateMachine>();
 
         InitState();
     }
@@ -39,6 +40,7 @@ public class PlayerCondition : MonoBehaviour
         MoveState = new MoveState(player);
         RunState = new RunState(player);
         JumpState = new JumpState(player);
+        JumpingPadState = new JumpingPadState(player);
 
         // 초기 상태 IdleState로 변경
         stateMachine.Init(IdleState);

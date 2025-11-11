@@ -9,8 +9,9 @@ public class RunState : IState
     private PlayerCondition condition;
     private StateMachine stateMachine;
 
-    public RunState(Player player)
+    public RunState(Player _player)
     {
+        player = _player;
         controller = player.controller;
         condition = player.condition;
         stateMachine = player.stateMachine;

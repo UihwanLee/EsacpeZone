@@ -856,6 +856,7 @@ GameObject:
   - component: {fileID: 598249308}
   - component: {fileID: 598249309}
   - component: {fileID: 598249310}
+  - component: {fileID: 598249311}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -950,10 +951,8 @@ MonoBehaviour:
   minXLook: -35
   maxXLook: 15
   lookSensitivity: 0.2
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
   _rb: {fileID: 0}
+  collisionHandler: {fileID: 0}
   isJumping: 0
 --- !u!114 &598249306
 MonoBehaviour:
@@ -1080,6 +1079,7 @@ MonoBehaviour:
   stateMachine: {fileID: 0}
   controller: {fileID: 0}
   condition: {fileID: 0}
+  jumpingPad: {fileID: 0}
 --- !u!114 &598249308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1126,6 +1126,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556a75939ce8e81478e31400162b000b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &598249311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598249300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d04c4a85aff352a42a9242f659c1d576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  jumpPadMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &618589824
 GameObject:
   m_ObjectHideFlags: 0
@@ -2303,7 +2321,8 @@ GameObject:
   - component: {fileID: 1631847505}
   - component: {fileID: 1631847504}
   - component: {fileID: 1631847503}
-  m_Layer: 0
+  - component: {fileID: 1631847506}
+  m_Layer: 8
   m_Name: JumpingGimmik
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2396,6 +2415,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1631847501}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1631847506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631847501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 471704f90cee4574ca516774da4eea16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpingDirection: {x: 0, y: 10, z: 20}
+  jumpPower: 50
 --- !u!1 &1662263383
 GameObject:
   m_ObjectHideFlags: 0
