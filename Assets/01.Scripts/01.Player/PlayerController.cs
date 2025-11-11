@@ -26,19 +26,20 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private Camera camera;
 
+    // 클래스 참조
     private PlayerCondition condition;
+    private StateMachine stateMachine;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         camera = Camera.main;
-
-        curSpeed = moveSpeed;
     }
 
     private void Start()
     {
         condition = CharacterManager.Instance.Player.condition;
+        stateMachine = CharacterManager.Instance.Player.stateMachine;
     }
 
     private void FixedUpdate()
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour
         CamerLook();
     }
 
+    #region 이동 처리
     public void InputMove(InputAction.CallbackContext context)
     {
         if(context.phase == InputActionPhase.Performed)
@@ -72,53 +74,55 @@ public class PlayerController : MonoBehaviour
 
         _rb.velocity = dir;
     }
+    #endregion
+
+    #region 달리기 처리
+
+    public void InputRun(InputAction.CallbackContext context)
+    {
+        // 특정 상태일 때는 Input 안받게
+
+        if (context.phase == InputActionPhase.Performed)
+        {
+            // Shift를 누르고 있을 시 달리기
+            stateMachine.ChangeState(condition.RunState);
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            stateMachine.ChangeState(condition.IdleState);
+        }
+    }
+
+    #endregion
+
+    #region 점프 처리
 
     public void InputJump(InputAction.CallbackContext context)
     {
         if(context.phase == InputActionPhase.Started)
         {
-            // Space바 한번 누르면 점프
-            Jump();
+            // JumpState 변경
+            stateMachine.ChangeState(condition.JumpState);
         }
     }
 
-    public void InputRun(InputAction.CallbackContext context)
-    {
-        if (condition.state == ConditonState.Consume || condition.state == ConditonState.Die) return;
-
-        if(context.phase == InputActionPhase.Performed)
-        {
-            // Shift를 누르고 있을 시 달리기
-            ChangeSpeed(runSpeed);
-            condition.ChangeState(ConditonState.Run);
-        }
-        else if(context.phase == InputActionPhase.Canceled)
-        {
-            ChangeSpeed(moveSpeed);
-            condition.ChangeState(ConditonState.None);
-        }
-    }
-
-    private void Jump()
+    public void Jump()
     {
         if(IsGrounded())
         {
             _rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
-            condition.Jump();
         }
     }
 
-    private bool IsGrounded()
-    {
-        Ray ray = new Ray(transform.position, Vector2.down);
-        return Physics.Raycast(ray, 1.5f, groundMask);
-    }
+    #endregion
+
+    #region 시선 처리
 
     public void InputMouseDelta(InputAction.CallbackContext context)
     {
         mouseDelta = context.ReadValue<Vector2>();
     }
-    
+
     private void CamerLook()
     {
         // 마우스 회전에 따른 카메라 이동
@@ -129,8 +133,20 @@ public class PlayerController : MonoBehaviour
         transform.eulerAngles += new Vector3(0f, mouseDelta.x * lookSensitivity, 0f);
     }
 
+    #endregion
+
+    #region 상태 처리
+
+    public bool IsGrounded()
+    {
+        Ray ray = new Ray(transform.position, Vector2.down);
+        return Physics.Raycast(ray, 1.5f, groundMask);
+    }
+
     public void ChangeSpeed(float speed)
     {
         curSpeed = speed;
     }
+
+    #endregion
 }

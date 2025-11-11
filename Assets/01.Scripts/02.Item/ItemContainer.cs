@@ -30,7 +30,7 @@ public class ItemContainer : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        CharacterManager.Instance.Player.condition.ChangeState(ConditonState.Consume);
+        //CharacterManager.Instance.Player.condition.ChangeState(ConditonState.Consume);
         StartCoroutine(AccelearationCoroutine());
     }
 
@@ -53,7 +53,7 @@ public class ItemContainer : MonoBehaviour, IInteractable
             yield return null;
         }
 
-        CharacterManager.Instance.Player.condition.ChangeState(ConditonState.None);
+        //CharacterManager.Instance.Player.condition.ChangeState(ConditonState.None);
         CharacterManager.Instance.Player.controller.ChangeSpeed(5.0f);
         yield return null;
     }
