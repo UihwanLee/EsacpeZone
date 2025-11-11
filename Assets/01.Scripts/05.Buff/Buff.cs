@@ -62,6 +62,12 @@ public class Buff : MonoBehaviour, IInteractable
 
     public void ShowInteractUI()
     {
+        if(isActive == false)
+        {
+            interactUI.SetActive(false);
+            return;
+        }
+
         interactUI.SetActive(!interactUI.activeSelf);
     }
 
