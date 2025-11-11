@@ -3421,6 +3421,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3818588358583914846, guid: 13cdfb68f3c93694e9584744217352d8, type: 3}
+      propertyPath: healAmount
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8662382874272244242, guid: 13cdfb68f3c93694e9584744217352d8, type: 3}
       propertyPath: m_Name
       value: Buff_Heal

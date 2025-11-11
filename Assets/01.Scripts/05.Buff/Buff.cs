@@ -21,7 +21,9 @@ public class Buff : MonoBehaviour, IInteractable
     [SerializeField] private GameObject interactUI;
     [SerializeField] private TextMeshProUGUI interactTitle;
 
-    private bool isActive;
+    public bool isActive;
+
+    protected float maxDuration;
 
     public Action eventBuffOff;     // 버프가 꺼질 때 이벤트 
     private void Awake()
@@ -41,17 +43,11 @@ public class Buff : MonoBehaviour, IInteractable
         description = buff.description;
         type = buff.type;
         duration = buff.duration;
+        maxDuration = buff.duration;
         icon = buff.icon;
 
         interactTitle.text = buff.name;
         interactUI.SetActive(false);
-    }
-
-    private void Update()
-    {
-        // 버프가 켜져 있는 상태에서만 duration 감소
-        if (isActive)
-            DecreaseDuration();
     }
 
     public string GetInteractPrompt()
@@ -68,22 +64,13 @@ public class Buff : MonoBehaviour, IInteractable
         // 버프 창 넘기기
         BuffManager.Instance.AddBuff(this);
         model.SetActive(false);
+
+        Active();
     }
 
     public void ShowInteractUI()
     {
         interactUI.SetActive(!interactUI.activeSelf);
-    }
-
-    private void DecreaseDuration()
-    {
-        duration -= Time.deltaTime;
-
-        if(duration <= 0)
-        {
-            BuffManager.Instance.RemoveBuff(this);
-            SetActive(false);
-        }
     }
 
     private void BuffOff()
