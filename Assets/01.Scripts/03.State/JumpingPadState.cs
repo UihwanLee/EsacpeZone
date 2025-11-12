@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class JumpingPadState : IState
 {
@@ -56,10 +57,44 @@ public class JumpingPadState : IState
         }
     }
 
+    public void FixedDo()
+    {
+        Move();
+    }
+
+    private void Move()
+    {
+        Vector3 dir = player.transform.forward * controller.CurrentMoveVector.y + player.transform.right * controller.CurrentMoveVector.x;
+        dir *= controller.CurrentSpeed;
+        dir.y = controller._rb.velocity.y;
+
+        controller._rb.velocity = dir;
+    }
+
+
 
     public void Exit()
     {
         // JumpingPad Player에게서 지우기
         //player.jumpingPad = null;
     }
+
+    #region 입력처리
+
+    public void HandleMoveInput(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void HandleRunInput(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void HandleJumpInput(InputAction.CallbackContext context)
+    {
+
+    }
+
+    #endregion
 }

@@ -75,6 +75,6 @@ public class PlayerCondition : MonoBehaviour
 
     private void Update()
     {
-        stateTxt.text = $"현재 상태: {stateMachine.CurState}";        
+        stateTxt.text = $"현재 상태: {stateMachine.CurrentState}";        
     }
 }

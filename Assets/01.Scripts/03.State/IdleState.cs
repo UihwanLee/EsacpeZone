@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class IdleState : IState
@@ -33,9 +34,62 @@ public class IdleState : IState
         condition.stamina.Add(condition.stamina.passiveValue * Time.deltaTime);
     }
 
+    public void FixedDo()
+    {
+        Move();
+    }
+
+    private void Move()
+    {
+        Vector3 dir = player.transform.forward * controller.CurrentMoveVector.y + player.transform.right * controller.CurrentMoveVector.x;
+        dir *= controller.CurrentSpeed;
+        dir.y = controller._rb.velocity.y;
+
+        controller._rb.velocity = dir;
+    }
+
 
     public void Exit()
     {
         
     }
+
+    #region 입력처리
+
+    public void HandleMoveInput(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            // W, A, S, D키를 누르고 있는 상태라면 Move
+            controller.CurrentMoveVector = context.ReadValue<Vector2>();
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            controller.CurrentMoveVector = Vector2.zero;
+        }
+    }
+
+    public void HandleRunInput(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            // Shift를 누르고 있을 시 달리기
+            stateMachine.ChangeState(condition.RunState);
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            stateMachine.ChangeState(condition.IdleState);
+        }
+    }
+
+    public void HandleJumpInput(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            // JumpState 변경
+            stateMachine.ChangeState(condition.JumpState);
+        }
+    }
+
+    #endregion
 }

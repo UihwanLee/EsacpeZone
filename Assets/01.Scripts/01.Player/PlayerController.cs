@@ -10,7 +10,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed;       // 이동 속도
     [SerializeField] private float runSpeed;        // 달리기 속도
     [SerializeField] private float jumpPower;       // 점프 파워
-    private Vector2 curMoveVector;                  // 현재 움직임
+
+
+    public Vector2 CurrentMoveVector { get; set; }          // 현재 움직임
+    public float CurrentSpeed { get { return curSpeed; } }  // 현재 속도 프로퍼티
 
     [Header("CameraLook")]
     [SerializeField] private float minXLook;            // 최소 시야
@@ -55,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        //Move();
     }
 
     private void LateUpdate()
@@ -66,44 +69,16 @@ public class PlayerController : MonoBehaviour
     #region 이동 처리
     public void InputMove(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Performed)
-        {
-            // W, A, S, D키를 누르고 있는 상태라면 Move
-            isMoving = true;
-            curMoveVector = context.ReadValue<Vector2>();
-        }
-        else if(context.phase == InputActionPhase.Canceled)
-        {
-            isMoving = false;
-            curMoveVector = Vector2.zero;
-        }
+        stateMachine.CurrentState.HandleMoveInput(context);
     }
 
-    private void Move()
-    {
-        Vector3 dir = transform.forward * curMoveVector.y + transform.right * curMoveVector.x;
-        dir *= curSpeed;
-        dir.y = _rb.velocity.y;
-
-        _rb.velocity = dir;
-    }
     #endregion
 
     #region 달리기 처리
 
     public void InputRun(InputAction.CallbackContext context)
     {
-        // 특정 상태일 때는 Input 안받게
-
-        if (context.phase == InputActionPhase.Performed)
-        {
-            // Shift를 누르고 있을 시 달리기
-            stateMachine.ChangeState(condition.RunState);
-        }
-        else if (context.phase == InputActionPhase.Canceled)
-        {
-            stateMachine.ChangeState(condition.IdleState);
-        }
+        stateMachine.CurrentState.HandleRunInput(context);
     }
 
     #endregion
@@ -112,11 +87,7 @@ public class PlayerController : MonoBehaviour
 
     public void InputJump(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started)
-        {
-            // JumpState 변경
-            stateMachine.ChangeState(condition.JumpState);
-        }
+        stateMachine.CurrentState.HandleJumpInput(context);
     }
 
     public void CheckJumping()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ClimbState : IState
 {
@@ -33,9 +34,32 @@ public class ClimbState : IState
         condition.stamina.Add(condition.stamina.passiveValue * Time.deltaTime);
     }
 
+    public void FixedDo()
+    {
+
+    }
 
     public void Exit()
     {
         controller._rb.useGravity = true;
     }
+
+    #region 입력처리
+
+    public void HandleMoveInput(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void HandleRunInput(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void HandleJumpInput(InputAction.CallbackContext context)
+    {
+
+    }
+
+    #endregion
 }
