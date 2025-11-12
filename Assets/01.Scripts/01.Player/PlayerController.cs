@@ -56,11 +56,6 @@ public class PlayerController : MonoBehaviour
         CheckBuff();
     }
 
-    private void FixedUpdate()
-    {
-        //Move();
-    }
-
     private void LateUpdate()
     {
         CamerLook();
