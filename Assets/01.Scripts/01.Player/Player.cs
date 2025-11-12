@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public PlayerCondition condition;
 
     public JumpingPad jumpingPad;
+    public GameObject detachPlaform;
 
     private void Awake()
     {

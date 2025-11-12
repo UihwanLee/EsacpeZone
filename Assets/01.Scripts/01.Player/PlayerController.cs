@@ -28,8 +28,9 @@ public class PlayerController : MonoBehaviour
     private StateMachine stateMachine;
     public CollisionHandler collisionHandler;
 
-    // Jump bool 값
+    // bool 값
     public bool isGrounded = false;
+    public bool isMoving = false;
 
     private void Awake()
     {
@@ -67,10 +68,12 @@ public class PlayerController : MonoBehaviour
         if(context.phase == InputActionPhase.Performed)
         {
             // W, A, S, D키를 누르고 있는 상태라면 Move
+            isMoving = true;
             curMoveVector = context.ReadValue<Vector2>();
         }
         else if(context.phase == InputActionPhase.Canceled)
         {
+            isMoving = false;
             curMoveVector = Vector2.zero;
         }
     }
