@@ -10,10 +10,30 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] private LayerMask jumpPadMask;     // JumpPad Layer
     [SerializeField] private LayerMask buffMask;        // Buff Layer
 
+    private CapsuleCollider capsuleCollider;
+    private float maxDistance = 1.3f;
+
+    private void Awake()
+    {
+        capsuleCollider = GetComponent<CapsuleCollider>();
+    }
+
     public bool IsGrounded()
     {
+        bool isHit = false;
+
         Ray ray = new Ray(transform.position, Vector2.down);
-        return Physics.Raycast(ray, 1.5f, groundMask);
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit, maxDistance, groundMask);
+
+        DrawRay(hit, transform.position, Vector2.down * maxDistance);
+
+        if (hit.collider != null)
+        {
+            isHit = true;
+        }
+
+        return isHit;
     }
 
     public JumpingPad IsJumpingPad()
@@ -21,7 +41,10 @@ public class CollisionHandler : MonoBehaviour
         Ray ray = new Ray(transform.position, Vector2.down);
         RaycastHit hit;
         Physics.Raycast(ray, out hit, 1.5f, jumpPadMask);
-        if(hit.collider != null)
+
+        DrawRay(hit, transform.position, Vector2.down * 1.5f);
+
+        if (hit.collider != null)
         {
             return hit.transform.GetComponent<JumpingPad>();
         }
@@ -47,5 +70,16 @@ public class CollisionHandler : MonoBehaviour
 
         // 충돌이 없으면 null 반환
         return null;
+    }
+
+    private void DrawRay(RaycastHit rayCastHit, Vector2 origin, Vector2 dir)
+    {
+        Color rayColor;
+        if (rayCastHit.collider != null)
+            rayColor = Color.green;
+        else
+            rayColor = Color.red;
+
+        Debug.DrawRay(origin, dir, rayColor);
     }
 }

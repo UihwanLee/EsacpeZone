@@ -866,7 +866,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 56.7, y: 200}
+  m_AnchoredPosition: {x: 56.69995, y: 200}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &425351563
@@ -1660,7 +1660,7 @@ MonoBehaviour:
   lookSensitivity: 0.2
   _rb: {fileID: 0}
   collisionHandler: {fileID: 0}
-  isJumping: 0
+  isGrounded: 0
 --- !u!114 &598249306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3289,7 +3289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpingDirection: {x: 0, y: 5, z: 20}
-  jumpPower: 80
+  jumpPower: 100
 --- !u!1001 &1660400111
 PrefabInstance:
   m_ObjectHideFlags: 0

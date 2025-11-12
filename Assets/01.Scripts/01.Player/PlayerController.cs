@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     public CollisionHandler collisionHandler;
 
     // Jump bool 값
-    public bool isJumping = false;
+    public bool isGrounded = false;
 
     private void Awake()
     {
@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
 
     public void CheckJumping()
     {
-        isJumping = collisionHandler.IsGrounded();
+        isGrounded = collisionHandler.IsGrounded();
     }
 
     #endregion

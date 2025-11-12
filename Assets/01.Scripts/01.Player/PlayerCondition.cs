@@ -57,11 +57,13 @@ public class PlayerCondition : MonoBehaviour
 
         stateMachine.MakeTransitionRule(RunState, JumpState);
         stateMachine.MakeTransitionRule(RunState, JumpingPadState);
+        stateMachine.MakeTransitionRule(RunState, IdleState);
 
         stateMachine.MakeTransitionRule(JumpState, IdleState);
         stateMachine.MakeTransitionRule(JumpState, JumpingPadState);
 
         stateMachine.MakeTransitionRule(JumpingPadState, IdleState);
+        stateMachine.MakeTransitionRule(JumpingPadState, JumpingPadState);
     }
 
     private void Update()

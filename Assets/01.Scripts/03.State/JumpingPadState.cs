@@ -9,6 +9,8 @@ public class JumpingPadState : IState
     private PlayerCondition condition;
     private StateMachine stateMachine;
 
+    private float jumpStartTime;
+
     public JumpingPadState(Player _player)
     {
         player = _player;
@@ -28,6 +30,8 @@ public class JumpingPadState : IState
             return;
         }
 
+        jumpStartTime = Time.time;
+
         // 방향대로 점프
         Vector3 jumpDir = player.jumpingPad.jumpingDirection.normalized;
         float jumpPower = player.jumpingPad.jumpPower;
@@ -36,7 +40,10 @@ public class JumpingPadState : IState
 
     public void Do()
     {
-        if (controller.isJumping) return;
+        if (Time.time < jumpStartTime + 0.1f)
+        {
+            return;
+        }
 
         // 기본 상태에서는 체력이 서서히 감소함
         condition.health.Subtract(condition.health.passiveValue * Time.deltaTime);
@@ -45,7 +52,7 @@ public class JumpingPadState : IState
         if (controller.collisionHandler.IsGrounded())
         {
             stateMachine.ChangeState(condition.IdleState);
-            controller.isJumping = false;
+            controller.isGrounded = false;
         }
     }
 
