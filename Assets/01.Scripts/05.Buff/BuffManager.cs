@@ -72,7 +72,7 @@ public class BuffManager : MonoBehaviour
         if (CheckIsContainBuff(buff)) return;
 
         // 소지 할 수 있는 버프 개수를 넘었는지 체크
-        if (currentSlotIndex >= maxBuffSlotCount) return;
+        if (currentSlotIndex >= maxBuffSlotCount && currentSlotIndex < 0) return;
 
         buff.SetActive(true);
 
@@ -85,14 +85,22 @@ public class BuffManager : MonoBehaviour
 
     public void RemoveBuff(Buff buff)
     {
+        if (currentSlotIndex < 0) return;
+
+        bool isFind = false;
+
         // 현재 BuffSlot 중 해당하는 buff를 찾아 지운다.
         for(int i=buffSlotList.Length-1; i>=0; i--)
         {
             if(buffSlotList[i].Buff == buff)
             {
+                isFind = true;
                 buffSlotList[i].ResetSlot();
             }
         }
+
+        // Slot Index 감소
+        if(isFind) currentSlotIndex = Mathf.Max(currentSlotIndex-1, 0);
 
         UpdateBuffSlot();
     }
