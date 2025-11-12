@@ -64,7 +64,12 @@ public class Buff : MonoBehaviour, IInteractable
 
     public void ShowInteractUI()
     {
-        interactUI.SetActive(!interactUI.activeSelf);
+        interactUI.SetActive(true);
+    }
+
+    public void CloseInteractUI()
+    {
+        interactUI.SetActive(false);
     }
 
     public virtual void BuffOn()

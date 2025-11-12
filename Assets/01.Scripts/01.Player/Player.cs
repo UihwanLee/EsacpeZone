@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public PlayerCondition condition;
 
     public JumpingPad jumpingPad;
-    public GameObject detachPlaform;
+    public GameObject detachObject;
 
     private void Awake()
     {

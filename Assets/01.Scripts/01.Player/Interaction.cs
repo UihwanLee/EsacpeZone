@@ -41,8 +41,8 @@ public class Interaction : MonoBehaviour
         IInteractable interactable = other.GetComponent<IInteractable>();
         if (interactable != null)
         {
-            curInteractable = interactable;
-            curInteractable.ShowInteractUI();
+            curInteractable.CloseInteractUI();
+            curInteractable = null;
             interactTxt.text = string.Empty;
         }
     }

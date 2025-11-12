@@ -65,7 +65,7 @@ public class MovingPlatform : MonoBehaviour
             }
 
             // player 전달
-            player.detachPlaform = this.gameObject;
+            player.detachObject = this.gameObject;
 
             // target 지정
             target = player.transform.gameObject;
@@ -80,7 +80,7 @@ public class MovingPlatform : MonoBehaviour
         {
             target = null;
             offset = Vector3.zero;
-            player.detachPlaform = null;
+            player.detachObject = null;
         }
     }
 }
