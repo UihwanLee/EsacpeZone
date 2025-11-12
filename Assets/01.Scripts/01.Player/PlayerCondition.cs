@@ -16,6 +16,7 @@ public class PlayerCondition : MonoBehaviour
     public IState RunState { get; private set; }
     public IState JumpState { get; private set; }
     public IState JumpingPadState { get; private set; }
+    public IState ClimbState { get; private set; }
 
     // 클래스 참조
     private Player player;
@@ -41,6 +42,7 @@ public class PlayerCondition : MonoBehaviour
         RunState = new RunState(player);
         JumpState = new JumpState(player);
         JumpingPadState = new JumpingPadState(player);
+        ClimbState = new ClimbState(player);
 
         SetUpTransition();
 
@@ -54,16 +56,21 @@ public class PlayerCondition : MonoBehaviour
         stateMachine.MakeTransitionRule(IdleState, RunState);
         stateMachine.MakeTransitionRule(IdleState, JumpState);
         stateMachine.MakeTransitionRule(IdleState, JumpingPadState);
+        stateMachine.MakeTransitionRule(IdleState, ClimbState);
 
         stateMachine.MakeTransitionRule(RunState, JumpState);
         stateMachine.MakeTransitionRule(RunState, JumpingPadState);
         stateMachine.MakeTransitionRule(RunState, IdleState);
+        stateMachine.MakeTransitionRule(RunState, ClimbState);
 
         stateMachine.MakeTransitionRule(JumpState, IdleState);
         stateMachine.MakeTransitionRule(JumpState, JumpingPadState);
 
         stateMachine.MakeTransitionRule(JumpingPadState, IdleState);
         stateMachine.MakeTransitionRule(JumpingPadState, JumpingPadState);
+
+        stateMachine.MakeTransitionRule(ClimbState, IdleState);
+        stateMachine.MakeTransitionRule(ClimbState, JumpState);
     }
 
     private void Update()

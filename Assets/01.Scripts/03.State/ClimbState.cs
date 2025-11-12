@@ -2,26 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuffState : IState
+public class ClimbState : IState
 {
     private Player player;
     private PlayerController controller;
     private PlayerCondition condition;
     private StateMachine stateMachine;
 
-    public BuffState(Player _player)
+    public ClimbState(Player _player)
     {
         player = _player;
         controller = player.controller;
         condition = player.condition;
         stateMachine = player.stateMachine;
-        stateMachine = player.stateMachine;
     }
 
     public void Enter()
     {
-        // 기본 속도로 변경
-        controller.ChangeSpeed(Define.SPEED_MOVE);
+        // Player 제어
+        controller._rb.useGravity = false;
+        controller._rb.velocity = Vector3.zero;
     }
 
     public void Do()
@@ -36,6 +36,6 @@ public class BuffState : IState
 
     public void Exit()
     {
-
+        controller._rb.useGravity = true;
     }
 }

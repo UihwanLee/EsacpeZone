@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     // bool 값
     public bool isGrounded = false;
     public bool isMoving = false;
+    public bool isClimbing = false;
 
     private void Awake()
     {
