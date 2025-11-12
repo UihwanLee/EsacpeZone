@@ -52,23 +52,36 @@ public class PlayerCondition : MonoBehaviour
 
     private void SetUpTransition()
     {
+        // Idle
         stateMachine.MakeTransitionRule(IdleState, MoveState);
         stateMachine.MakeTransitionRule(IdleState, RunState);
         stateMachine.MakeTransitionRule(IdleState, JumpState);
         stateMachine.MakeTransitionRule(IdleState, JumpingPadState);
         stateMachine.MakeTransitionRule(IdleState, ClimbState);
 
+        // Move
+        stateMachine.MakeTransitionRule(MoveState, IdleState);
+        stateMachine.MakeTransitionRule(MoveState, RunState);
+        stateMachine.MakeTransitionRule(MoveState, JumpState);
+        stateMachine.MakeTransitionRule(MoveState, JumpingPadState);
+        stateMachine.MakeTransitionRule(MoveState, ClimbState);
+
+        // Run
+        stateMachine.MakeTransitionRule(RunState, IdleState);
+        stateMachine.MakeTransitionRule(RunState, MoveState);
         stateMachine.MakeTransitionRule(RunState, JumpState);
         stateMachine.MakeTransitionRule(RunState, JumpingPadState);
-        stateMachine.MakeTransitionRule(RunState, IdleState);
         stateMachine.MakeTransitionRule(RunState, ClimbState);
 
+        // Jump
         stateMachine.MakeTransitionRule(JumpState, IdleState);
         stateMachine.MakeTransitionRule(JumpState, JumpingPadState);
 
+        // JumpingPad
         stateMachine.MakeTransitionRule(JumpingPadState, IdleState);
         stateMachine.MakeTransitionRule(JumpingPadState, JumpingPadState);
 
+        // Climb
         stateMachine.MakeTransitionRule(ClimbState, IdleState);
         stateMachine.MakeTransitionRule(ClimbState, JumpState);
     }

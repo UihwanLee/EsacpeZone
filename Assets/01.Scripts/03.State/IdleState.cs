@@ -62,10 +62,12 @@ public class IdleState : IState
         {
             // W, A, S, D키를 누르고 있는 상태라면 Move
             controller.CurrentMoveVector = context.ReadValue<Vector2>();
+            stateMachine.ChangeState(condition.MoveState);
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
             controller.CurrentMoveVector = Vector2.zero;
+            stateMachine.ChangeState(condition.IdleState);
         }
     }
 

@@ -66,6 +66,7 @@ public class MoveState : IState
         else if (context.phase == InputActionPhase.Canceled)
         {
             controller.CurrentMoveVector = Vector2.zero;
+            stateMachine.ChangeState(condition.IdleState);
         }
     }
 
