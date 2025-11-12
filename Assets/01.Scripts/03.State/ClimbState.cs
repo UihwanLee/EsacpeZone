@@ -36,7 +36,15 @@ public class ClimbState : IState
 
     public void FixedDo()
     {
+        Climb();
+    }
 
+    private void Climb()
+    {
+        Vector3 dir = player.transform.up * controller.CurrentMoveVector.y;
+        dir *= controller.CurrentSpeed;
+
+        controller._rb.velocity = dir;
     }
 
     public void Exit()
@@ -48,7 +56,14 @@ public class ClimbState : IState
 
     public void HandleMoveInput(InputAction.CallbackContext context)
     {
-
+        if (context.phase == InputActionPhase.Performed)
+        {
+            controller.CurrentMoveVector = context.ReadValue<Vector2>();
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            controller.CurrentMoveVector = Vector2.zero;
+        }
     }
 
     public void HandleRunInput(InputAction.CallbackContext context)
@@ -58,7 +73,11 @@ public class ClimbState : IState
 
     public void HandleJumpInput(InputAction.CallbackContext context)
     {
-
+        if (context.phase == InputActionPhase.Started)
+        {
+            // JumpState 변경
+            stateMachine.ChangeState(condition.JumpState);
+        }
     }
 
     #endregion
