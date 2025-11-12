@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Laser : MonoBehaviour
 {
     // Laser 스크립트
 
-    [SerializeField] private float defDistanceRay = 100;
+    [Header("Value")]
+    [SerializeField] private float maxLaserDistance = 100;
+
+    [Header("Component")]
     [SerializeField] private Transform laserFirePoint;
     [SerializeField] private LineRenderer lineRenderer;
-    private Transform m_transform;
 
-    private void Awake()
-    {
-        m_transform = GetComponent<Transform>();
-    }
+    [Header("LayerMask")]
+    [SerializeField] private LayerMask targetLayer;
 
     private void Update()
     {
@@ -23,16 +24,24 @@ public class Laser : MonoBehaviour
 
     private void ShootingLaser()
     {
-        if (Physics.Raycast(m_transform.position, transform.forward))
+        RaycastHit hit;
+        Vector3 rayStartPos = laserFirePoint.position;
+
+        bool isHit = Physics.Raycast(rayStartPos, transform.forward, out hit, maxLaserDistance);
+
+        if(isHit)
         {
-            RaycastHit hit;
-            Ray ray = new Ray(laserFirePoint.position, transform.forward);
-            Physics.Raycast(ray, out hit);
-            DrawRay(laserFirePoint.position, hit.point);
+            DrawRay(rayStartPos, hit.point);
+
+            // Player가 맞는다면
+            if (hit.collider.gameObject == CharacterManager.Instance.Player.gameObject)
+            {
+                Debug.Log("Target Laser Hit!");
+            }
         }
         else
         {
-            DrawRay(laserFirePoint.position, laserFirePoint.transform.forward * defDistanceRay);
+            DrawRay(laserFirePoint.position, laserFirePoint.transform.forward * maxLaserDistance);
         }
     }
 
