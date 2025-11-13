@@ -70,4 +70,11 @@ public class StateMachine : MonoBehaviour
         if (currentState != null)
             currentState.FixedDo();
     }
+
+    public void LateUpdate()
+    {
+        // LateUpdate에서 LatedDo 실행
+        if (currentState != null)
+            currentState.LatedDo();
+    }
 }

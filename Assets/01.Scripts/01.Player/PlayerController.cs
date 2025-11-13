@@ -11,10 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float runSpeed;        // 달리기 속도
     [SerializeField] private float jumpPower;       // 점프 파워
 
-
-    public Vector2 CurrentMoveVector { get; set; }          // 현재 움직임
-    public float CurrentSpeed { get { return curSpeed; } }  // 현재 속도 프로퍼티
-
     [Header("CameraLook")]
     [SerializeField] private float minXLook;            // 최소 시야
     [SerializeField] private float maxXLook;            // 최대 시야
@@ -54,11 +50,6 @@ public class PlayerController : MonoBehaviour
         CheckJumping();
         CheckJumpingPad();
         CheckBuff();
-    }
-
-    private void LateUpdate()
-    {
-        CamerLook();
     }
 
     #region 이동 처리
@@ -118,17 +109,7 @@ public class PlayerController : MonoBehaviour
 
     public void InputMouseDelta(InputAction.CallbackContext context)
     {
-        mouseDelta = context.ReadValue<Vector2>();
-    }
-
-    private void CamerLook()
-    {
-        // 마우스 회전에 따른 카메라 이동
-        curXLook += mouseDelta.y * lookSensitivity;
-        curXLook = Mathf.Clamp(curXLook, minXLook, maxXLook);
-        camera.transform.localEulerAngles = new Vector3(-curXLook, 0f, 0f);
-
-        transform.eulerAngles += new Vector3(0f, mouseDelta.x * lookSensitivity, 0f);
+        stateMachine.CurrentState.HandleMouseInput(context);
     }
 
     #endregion
@@ -139,6 +120,29 @@ public class PlayerController : MonoBehaviour
     {
         curSpeed = speed;
     }
+
+    public void ChangeXLook(float xLook)
+    {
+        curXLook = xLook;
+    }
+
+    public void ChangeMouseDelta(Vector2 delta)
+    {
+        mouseDelta = delta;
+    }
+
+    #endregion
+
+    #region 프로퍼티
+
+    public Vector2 CurrentMoveVector { get; set; }          
+    public float CurrentSpeed { get { return curSpeed; } }  
+    public float CurrentXLook { get { return curXLook; } }
+    public Vector2 MouseDelta { get { return mouseDelta; } }
+    public float MinXLook { get { return minXLook; } }
+    public float MaxXLook { get { return maxXLook; } }
+    public float LookIntensity { get { return lookSensitivity; } }
+    public Camera MainCamera { get { return camera; } set { camera = value; } }
 
     #endregion
 }

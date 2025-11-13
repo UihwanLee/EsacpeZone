@@ -73,6 +73,26 @@ public class ClimbState : IState
         controller._rb.velocity = dir;
     }
 
+
+    public void LatedDo()
+    {
+        CamerLook();
+    }
+
+    private void CamerLook()
+    {
+        // 마우스 회전에 따른 카메라 이동
+        float curXLook = controller.CurrentXLook;
+        curXLook += controller.MouseDelta.y * controller.LookIntensity;
+        curXLook = Mathf.Clamp(curXLook, controller.MinXLook, controller.MaxXLook);
+
+        Camera camera = controller.MainCamera;
+        camera.transform.localEulerAngles = new Vector3(-curXLook, 0f, 0f);
+        controller.MainCamera = camera;
+
+        player.transform.eulerAngles += new Vector3(0f, controller.MouseDelta.x * controller.LookIntensity, 0f);
+    }
+
     public void Exit()
     {
         controller._rb.useGravity = true;
@@ -105,6 +125,12 @@ public class ClimbState : IState
             controller.isClimbing = false;
             stateMachine.ChangeState(condition.JumpState);
         }
+    }
+
+    public void HandleMouseInput(InputAction.CallbackContext context)
+    {
+        Vector2 mouseDelta = context.ReadValue<Vector2>();
+        controller.ChangeMouseDelta(mouseDelta);
     }
 
     #endregion
