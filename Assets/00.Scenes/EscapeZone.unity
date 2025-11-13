@@ -2136,6 +2136,7 @@ MonoBehaviour:
   condition: {fileID: 0}
   jumpingPad: {fileID: 0}
   detachObject: {fileID: 0}
+  UI_Die: {fileID: 1374446125}
 --- !u!114 &598249308
 MonoBehaviour:
   m_ObjectHideFlags: 0

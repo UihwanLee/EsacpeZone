@@ -37,6 +37,7 @@ public class Laser : MonoBehaviour
             if (hit.collider.gameObject == CharacterManager.Instance.Player.gameObject)
             {
                 Debug.Log("Target Laser Hit!");
+                CharacterManager.Instance.Player.UI_Die.SetActive(true);
             }
         }
         else

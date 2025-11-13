@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public JumpingPad jumpingPad;
     public GameObject detachObject;
 
+    public GameObject UI_Die;
+
     private void Awake()
     {
         CharacterManager.Instance.Player = this;
