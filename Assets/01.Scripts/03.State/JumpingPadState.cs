@@ -41,6 +41,9 @@ public class JumpingPadState : IState
 
     public void Do()
     {
+        // Die 체크
+        if (controller.isDie) stateMachine.ChangeState(condition.DieState);
+
         if (Time.time < jumpStartTime + 0.1f)
         {
             return;
@@ -70,7 +73,6 @@ public class JumpingPadState : IState
 
         controller._rb.velocity = dir;
     }
-
 
     public void LatedDo()
     {

@@ -26,6 +26,9 @@ public class RunState : IState
 
     public void Do()
     {
+        // Die 체크
+        if (controller.isDie) stateMachine.ChangeState(condition.DieState);
+
         // 기본 상태에서는 체력이 서서히 감소함
         condition.health.Subtract(condition.health.passiveValue * Time.deltaTime);
 

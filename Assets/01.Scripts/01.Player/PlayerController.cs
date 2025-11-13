@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded = false;
     public bool isMoving = false;
     public bool isClimbing = false;
+    public bool isDie = false;
 
     private void Awake()
     {
@@ -50,6 +51,7 @@ public class PlayerController : MonoBehaviour
         CheckJumping();
         CheckJumpingPad();
         CheckBuff();
+        CheckDie();
     }
 
     #region 이동 처리
@@ -100,6 +102,14 @@ public class PlayerController : MonoBehaviour
         if(buff != null)
         {
             buff.BuffOn();
+        }
+    }
+
+    public void CheckDie()
+    {
+        if(this.transform.localPosition.y < -5.0f || condition.health.CurValue <= 0.0f)
+        {
+            isDie = true;
         }
     }
 

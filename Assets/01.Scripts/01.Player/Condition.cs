@@ -43,4 +43,6 @@ public class Condition : MonoBehaviour
     {
         curValue = Mathf.Max(curValue - value, 0f);
     }
+
+    public float CurValue { get { return curValue; } }
 }
